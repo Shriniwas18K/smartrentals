@@ -19,25 +19,22 @@ import java.util.Map;
 // Controllers use only service layer
 
 @RestController // this tells to return JSON responses using jackson underhood builtin
-@RequestMapping("/api/properties")
+@RequestMapping("/properties")
 public class PropertiesController{
 
     @Autowired
     private PropertiesService propertiesService;
 
-    @GetMapping("/get-by-id/{id}")
-    public ResponseEntity<Property> getUser(@PathVariable Long id) {
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getUser(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
         Property property = propertiesService.findById(id).orElse(null);
         if (property != null) {
             return ResponseEntity.ok(property);
         } else {
-            return ResponseEntity.notFound().build();
+            response.put("message", "Property with given id is not present");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
-    }
-
-    @GetMapping("/get-all")
-    public List<Property> getAllProperties(){
-        return propertiesService.findAll();
     }
 
     @PostMapping("/create")
