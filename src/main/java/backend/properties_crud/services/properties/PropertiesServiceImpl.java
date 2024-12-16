@@ -1,6 +1,5 @@
 package backend.properties_crud.services.properties;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import backend.properties_crud.persistence.properties.PropertyRepository;
 import backend.properties_crud.persistence.properties.Property;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,7 @@ import java.util.Optional;
 public class PropertiesServiceImpl implements PropertiesService{
 
     private final PropertyRepository propertiesRepository;
-    
-    @Autowired
+
     public PropertiesServiceImpl(PropertyRepository propertiesRepository) {
         this.propertiesRepository = propertiesRepository;
     }
