@@ -36,7 +36,6 @@ public class PropertiesServiceImpl implements PropertiesService{
         // given by lombok , hence we take values in method params
         Property property=Property.builder()
             .address(address)
-            .ownerName(ownerName)
             .area(area)
             .rent(rent)
             .build();

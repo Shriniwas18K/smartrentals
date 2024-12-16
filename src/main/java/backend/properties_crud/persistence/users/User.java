@@ -1,10 +1,16 @@
 package backend.properties_crud.persistence.users;
 
+import java.util.List;
+
+import backend.properties_crud.persistence.properties.Property;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -33,12 +39,9 @@ public class User{
     @Column(name="last_name")
     private String lastName;
     private String phone;
-    private String email;
+    private String email; // will be considered as username in spring security
     private String password;
-    // FetchType EAGER tells to fetch Roles at same time of retrieval of User
-    // Roles is child of User
-    // CascaseType.ALL tells to perform all operations effects of User to Roles
-
+  
     public User(String firstName,String lastName,String phone,String email,
     String password){
         this.firstName=firstName;
@@ -47,4 +50,7 @@ public class User{
         this.email=email;
         this.password=password;
     }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch=FetchType.LAZY)
+    private List<Property> properties;
 }

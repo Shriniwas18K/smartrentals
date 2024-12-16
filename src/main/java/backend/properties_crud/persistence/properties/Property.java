@@ -1,13 +1,19 @@
 package backend.properties_crud.persistence.properties;
 
+import backend.properties_crud.persistence.users.User;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /* above imported annotations are useful for reducing boilerplate code and configuration */
 
@@ -21,6 +27,7 @@ lombok provides all getter setter constructors here
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="properties")
 public class Property{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,7 +36,9 @@ public class Property{
     // hence we use builder , or alternatively we can use 
     // noargsconstructor with setter methods chained
     private String address;
-    private String ownerName;
+    @ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private User user;
     private Float area;
     private Integer rent;
 }

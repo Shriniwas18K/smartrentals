@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import backend.properties_crud.persistence.users.User;
@@ -16,18 +15,10 @@ import backend.properties_crud.persistence.users.UserRepository;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private BCryptPasswordEncoder encoder;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.encoder=new BCryptPasswordEncoder(12);
     }
-    
-    @Override
-    public BCryptPasswordEncoder getEncoder(){
-        return this.encoder;
-    }
-
     @Override
     public Long create(String firstName,String lastName,String phone,
     String email,String password){
@@ -36,7 +27,7 @@ public class UserServiceImpl implements UserService{
             .lastName(lastName)
             .phone(phone)
             .email(email)
-            .password(encoder.encode(password))
+            .password(password)
             .build();
         user=userRepository.save(user);
         return user.getId();
