@@ -1,7 +1,9 @@
 package backend.properties_crud.services.properties;
 
-import backend.properties_crud.persistence.properties.Property;
 import java.util.Optional;
+
+import backend.properties_crud.entity.Property;
+
 import java.util.List;
 // Controllers make use only methods in the interfaces of service layer
 // This allows the service layer to be independently developed parrallely

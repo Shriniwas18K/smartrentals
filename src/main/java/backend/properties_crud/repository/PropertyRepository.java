@@ -1,12 +1,12 @@
-package backend.properties_crud.persistence.properties;
+package backend.properties_crud.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import backend.properties_crud.entity.Property;
 import java.util.List;
 
-//implementation is given by spring data jpa implicitely
 @Repository
 public interface PropertyRepository extends JpaRepository<Property,Long>{
 

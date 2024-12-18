@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import backend.properties_crud.persistence.users.User;
-import backend.properties_crud.persistence.users.UserRepository;
+import backend.properties_crud.entity.User;
+import backend.properties_crud.repository.UserRepository;
 
 
 @Service

@@ -1,7 +1,8 @@
 package backend.properties_crud.services.properties;
 
-import backend.properties_crud.persistence.properties.PropertyRepository;
-import backend.properties_crud.persistence.properties.Property;
+import backend.properties_crud.entity.Property;
+import backend.properties_crud.repository.PropertyRepository;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
