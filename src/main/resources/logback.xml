@@ -1,0 +1,22 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <logger name="org.springframework.web" level="ERROR"/>
+    <logger name="org.hibernate" level="ERROR"/>
+    <logger name="org.springframework.security" level="DEBUG"/>
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="org.h2" level="ERROR"/>
+    <logger name="com.zaxxer.hikari.pool.HikariPool" level="ERROR"/>
+    
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/spring-boot-application.log</file> 
+        <encoder>
+            <pattern>%-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+        <append>false</append>
+    </appender>
+
+    <root level="ERROR">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
