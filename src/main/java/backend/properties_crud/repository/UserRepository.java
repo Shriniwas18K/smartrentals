@@ -8,6 +8,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+
+  /*
+  impicitely given methods by spring data jpa are
+
+  save(User user) : works for both insertion and updation of users
+  */
+
   @Query("SELECT u FROM User u WHERE u.email = :email")
   User findByEmail(@Param("email") String email);
+
+  void deleteByEmail(String email);
 }
