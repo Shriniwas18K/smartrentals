@@ -1,4 +1,4 @@
-package backend.properties_crud.DTOs;
+package backend.properties_crud.RequestDTOs;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -20,6 +20,6 @@ public record UserRegistrationAndUpdationDTO(
     String password,
 
     @Size(min=10,max=10,message = "Phone number must be exactly 10 digits")
-    String phoneNumber
+    String phone
 
 ) {}

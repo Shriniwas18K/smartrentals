@@ -1,5 +1,6 @@
-package backend.properties_crud.Accessing_endpoints_requiring_registration;
+package backend.properties_crud;
 
+import static backend.properties_crud.TestUtils.getEncodedCredentials;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -25,11 +26,36 @@ public class RegistrationTest {
   private final String encodedCredentials =
       getEncodedCredentials("storagedecentralized@gmail.com", "123456789");
 
-  /* Inside database before using password encoder we needed to store password prefixing "noop"*/
+  @Test
+  @Order(0)
+  void test_unauthorized_access() throws Exception {
+    mockMvc
+        .perform(get("/"))
+        .andExpect(status().isUnauthorized());
+  }
 
   @Test
   @Order(1)
-  public void testRegistration() throws Exception {
+  void test_validation_of_request_body_in_registration() throws Exception {
+    String url = "/registration";
+    String invalidRequestBody =
+        """
+        {
+            "firstName":"storage",
+            "lastName":"decentralized",
+            "email":"storagedecentralized@gmail.com",
+            "password":"1234569",
+            "phone":"123456780"
+        }
+        """;
+    mockMvc
+        .perform(post(url).contentType(MediaType.APPLICATION_JSON).content(invalidRequestBody))
+        .andExpect(status().isUnprocessableEntity());
+  }
+
+  @Test
+  @Order(2)
+  void test_registration_and_accessibility() throws Exception {
     String url = "/registration";
     String requestBody =
         """
@@ -38,16 +64,19 @@ public class RegistrationTest {
             "lastName":"decentralized",
             "email":"storagedecentralized@gmail.com",
             "password":"123456789",
-            "phoneNumber":"1234567890"
+            "phone":"1234567890"
         }
         """;
     String expectedResponseBody =
         """
         {
-            "firstName":"storage",
-            "lastName":"decentralized",
-            "email":"storagedecentralized@gmail.com",
-            "phoneNumber":"1234567890"
+            "data": {
+                "firstName": "storage",
+                "lastName": "decentralized",
+                "email": "storagedecentralized@gmail.com",
+                "phone": "1234567890"
+            },
+            "message": "Registration Successful."
         }
         """;
     mockMvc
@@ -57,20 +86,15 @@ public class RegistrationTest {
   }
 
   @Test
-  @Order(2)
-  public void testSuccessfulLogin() throws Exception {
+  @Order(3)
+  void testSuccessfulLogin() throws Exception {
 
     mockMvc
         .perform(get("/").header("Authorization", "Basic " + encodedCredentials))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.message").value(Matchers.equalTo("Greetings!! Glad to see you here")))
+        .andExpect(
+            jsonPath("$.message").value(Matchers.equalTo("Greetings!! Glad to see you here")))
         .andExpect(cookie().doesNotExist("JSESSIONID"));
-
-  }
-
-  private String getEncodedCredentials(String username, String password) {
-    String credentials = username + ":" + password;
-    return java.util.Base64.getEncoder().encodeToString(credentials.getBytes());
   }
 }

@@ -1,7 +1,6 @@
 package backend.properties_crud.controllers;
 
-import backend.properties_crud.DTOs.UserProfileResponseDTO;
-import backend.properties_crud.DTOs.UserRegistrationAndUpdationDTO;
+import backend.properties_crud.RequestDTOs.UserRegistrationAndUpdationDTO;
 import backend.properties_crud.entity.User;
 import backend.properties_crud.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -25,20 +24,37 @@ public class GreetingsAndUserRegistration {
   private final PasswordEncoder passwordEncoder;
 
   @PostMapping("/registration")
-  @ResponseStatus(code = HttpStatus.CREATED)
-  public UserProfileResponseDTO userRegistrationHandler(
-      @Valid @RequestBody UserRegistrationAndUpdationDTO userRegistrationAndUpdationDTO) {
-    User user =
+  public ResponseEntity<?> userRegistrationHandler(
+      @Valid @RequestBody UserRegistrationAndUpdationDTO DTO) {
+
+    Map<String, Object> response = new HashMap<>();
+
+    if (userRepository.findByEmail(DTO.email()) != null) {
+      response.put("message", "User already exists with this email.");
+      return new ResponseEntity<>(response, HttpStatus.FOUND);
+    }
+
+    final User user =
         User.builder()
-            .firstName(userRegistrationAndUpdationDTO.firstName())
-            .lastName(userRegistrationAndUpdationDTO.lastName())
-            .phone(userRegistrationAndUpdationDTO.phoneNumber())
-            .email(userRegistrationAndUpdationDTO.email())
-            .password(passwordEncoder.encode(userRegistrationAndUpdationDTO.password()))
+            .firstName(DTO.firstName())
+            .lastName(DTO.lastName())
+            .phone(DTO.phone())
+            .email(DTO.email())
+            .password(passwordEncoder.encode(DTO.password()))
             .build();
-    user = userRepository.save(user);
-    return new UserProfileResponseDTO(
-        user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhone());
+
+    userRepository.save(user);
+
+    response.put("message", "Registration Successful.");
+    // conventionally password is not setn in response
+    Map<String, String> userprofile = new HashMap<>();
+    userprofile.put("firstName", user.getFirstName());
+    userprofile.put("lastName", user.getLastName());
+    userprofile.put("email", user.getEmail());
+    userprofile.put("phone", user.getPhone());
+    response.put("data", userprofile);
+    
+    return new ResponseEntity<>(response,HttpStatus.CREATED);
   }
 
   /* This below endpoint is written to test after user is registered */
