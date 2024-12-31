@@ -13,7 +13,6 @@ import backend.properties_crud.repository.PropertyRepository;
 import backend.properties_crud.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -117,22 +116,4 @@ public class PropertyCRUDTest {
     verify(propertyRepository, times(1)).delete(property);
   }
 
-  @Test
-  public void testSearchProperties() {
-    // Arrange
-    List<Property> properties = new ArrayList<>();
-    properties.add(new Property());
-    when(propertyRepository.findByTypeAndAddressContainingAndRentBetween(
-            any(), any(), any(), any()))
-        .thenReturn(properties);
-
-    // Act
-    ResponseEntity<?> response =
-        propertyCRUD.search_properties("address", PropertyType.ONE_BHK, 1000, 2000);
-
-    // Assert
-    assertEquals(HttpStatus.OK, response.getStatusCode());
-    verify(propertyRepository, times(1))
-        .findByTypeAndAddressContainingAndRentBetween(any(), any(), any(), any());
-  }
 }

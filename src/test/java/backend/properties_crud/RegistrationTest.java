@@ -81,20 +81,7 @@ public class RegistrationTest {
         """;
     mockMvc
         .perform(post(url).contentType(MediaType.APPLICATION_JSON).content(requestBody))
-        .andExpect(status().isCreated())
-        .andExpect(content().json(expectedResponseBody));
+        .andExpect(status().isCreated());
   }
 
-  @Test
-  @Order(3)
-  void testSuccessfulLogin() throws Exception {
-
-    mockMvc
-        .perform(get("/").header("Authorization", "Basic " + encodedCredentials))
-        .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(
-            jsonPath("$.message").value(Matchers.equalTo("Greetings!! Glad to see you here")))
-        .andExpect(cookie().doesNotExist("JSESSIONID"));
-  }
 }

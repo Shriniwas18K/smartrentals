@@ -21,7 +21,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final CustomRequestMatcher customRequestMatcher;
   private final CorsConfigurationSource corsConfigurationSource;
   private final CustomUserDetailsService customUserDetailsService;
 
@@ -38,10 +37,10 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             authorize ->
                 authorize
-                    .requestMatchers(customRequestMatcher)
+                    .requestMatchers("/registration", "/actuator/**", "/search")
                     .permitAll()
-                    .requestMatchers("/registration")
-                    .permitAll()
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+                    .permitAll() // Allow access to Swagger UI resources
                     .anyRequest()
                     .authenticated())
         .sessionManagement(

@@ -56,7 +56,7 @@ public class UserReadAndUpdationAndRemovalTest {
                     "Basic "
                         + getEncodedCredentials("storagedecentralized@gmail.com", "123456789")))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.message").value("User profile retrival was successful."))
+        .andExpect(jsonPath("$.message").value("User retrieved."))
         .andExpect(jsonPath("$.data.firstName").value("storage"))
         .andExpect(jsonPath("$.data.lastName").value("decentralized"))
         .andExpect(jsonPath("$.data.phone").value("1234567890"))
@@ -81,7 +81,7 @@ public class UserReadAndUpdationAndRemovalTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody))
         .andExpect(status().isAccepted())
-        .andExpect(jsonPath("$.message").value("User Details updation was successful."))
+        .andExpect(jsonPath("$.message").value("User details updated."))
         .andExpect(jsonPath("$.data.firstName").value("storage"))
         .andExpect(
             jsonPath("$.NOTE")
@@ -98,7 +98,7 @@ public class UserReadAndUpdationAndRemovalTest {
                     "Basic "
                         + getEncodedCredentials("storagedecentralized@gmail.com", "9765735435")))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.message").value("User profile retrival was successful."))
+        .andExpect(jsonPath("$.message").value("User retrieved."))
         .andExpect(jsonPath("$.data.firstName").value("storage"))
         .andExpect(jsonPath("$.data.lastName").value("decent"))
         .andExpect(jsonPath("$.data.phone").value("1234567890"))
@@ -113,7 +113,7 @@ public class UserReadAndUpdationAndRemovalTest {
                         + getEncodedCredentials("storagedecentralized@gmail.com", "9765735435")))
         .andExpect(status().isAccepted())
         .andExpect(
-            jsonPath("$.message").value("User and associated Properties removed successfully."));
+            jsonPath("$.message").value("User and associated properties removed."));
 
     mockMvc
         .perform(

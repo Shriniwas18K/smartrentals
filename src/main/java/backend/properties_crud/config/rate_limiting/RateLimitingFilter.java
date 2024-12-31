@@ -35,10 +35,10 @@ public class RateLimitingFilter implements Filter {
         String ipAddress = httpRequest.getRemoteAddr();
         
         // this below condition removes rate limiting for localhost for testing purposes
-        if (ipAddress.equals("0:0:0:0:0:0:0:1") || ipAddress.equals("127.0.0.1")) {
-            chain.doFilter(request, response);
-            return;
-        }
+        // if (ipAddress.equals("0:0:0:0:0:0:0:1") || ipAddress.equals("127.0.0.1")) {
+        //     chain.doFilter(request, response);
+        //     return;
+        // }
 
         RateLimit rateLimit = ipRequestCounts.computeIfAbsent(ipAddress, k -> new RateLimit());
 
