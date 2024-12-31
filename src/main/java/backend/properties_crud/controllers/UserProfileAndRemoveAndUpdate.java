@@ -9,7 +9,6 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,13 +35,8 @@ public class UserProfileAndRemoveAndUpdate {
   public ResponseEntity<?> get_user_profile(@AuthenticationPrincipal UserDetails userDetails) {
     User user = userRepository.findByEmail(userDetails.getUsername());
     Map<String, Object> response = new HashMap<>();
-    response.put("message", "User profile retrival was successful.");
-    Map<String, String> userprofile = new HashMap<>();
-    userprofile.put("firstName", user.getFirstName());
-    userprofile.put("lastName", user.getLastName());
-    userprofile.put("email", user.getEmail());
-    userprofile.put("phone", user.getPhone());
-    response.put("data", userprofile);
+    response.put("message", "User retrived.");
+    response.put("data", user);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
@@ -52,7 +46,7 @@ public class UserProfileAndRemoveAndUpdate {
       @AuthenticationPrincipal UserDetails userDetails) {
     Map<String, Object> response = new HashMap<>();
 
-    final User user = userRepository.findByEmail(userDetails.getUsername());
+    User user = userRepository.findByEmail(userDetails.getUsername());
     user.setEmail(DTO.email());
     user.setFirstName(DTO.firstName());
     user.setLastName(DTO.lastName());
@@ -67,15 +61,8 @@ public class UserProfileAndRemoveAndUpdate {
 
     userRepository.save(user);
 
-    response.put("message", "User Details updation was successful.");
-
-    Map<String, String> userprofile = new HashMap<>();
-    userprofile.put("firstName", user.getFirstName());
-    userprofile.put("lastName", user.getLastName());
-    userprofile.put("email", user.getEmail());
-    userprofile.put("phone", user.getPhone());
-    response.put("data", userprofile);
-
+    response.put("message", "User details updated.");
+    response.put("data", user);
     return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
   }
 
@@ -89,7 +76,7 @@ public class UserProfileAndRemoveAndUpdate {
     String email = userDetails.getUsername();
     userRepository.deleteByEmail(email);
     Map<String, String> response = new HashMap<>();
-    response.put("message", "User and associated Properties removed successfully.");
+    response.put("message", "User and associated properties removed.");
     return ResponseEntity.accepted().body(response);
   }
 }

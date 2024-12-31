@@ -1,7 +1,11 @@
 package backend.properties_crud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,11 +32,15 @@ public class Property{
  
     private String address;
  
+    @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name="user_id")
     private User user;
  
-    private Float area;
+    private Integer area;
  
     private Integer rent;
+
+    @Enumerated(EnumType.STRING)
+    private PropertyType type;
 }

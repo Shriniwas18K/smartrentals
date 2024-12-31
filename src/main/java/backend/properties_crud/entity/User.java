@@ -2,6 +2,8 @@ package backend.properties_crud.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +30,7 @@ import lombok.NoArgsConstructor;
 )
 public class User{
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -43,6 +46,7 @@ public class User{
     private String email; 
     // will be considered as username in spring security
 
+    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "user", 

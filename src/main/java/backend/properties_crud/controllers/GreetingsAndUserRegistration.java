@@ -46,13 +46,7 @@ public class GreetingsAndUserRegistration {
     userRepository.save(user);
 
     response.put("message", "Registration Successful.");
-    // conventionally password is not setn in response
-    Map<String, String> userprofile = new HashMap<>();
-    userprofile.put("firstName", user.getFirstName());
-    userprofile.put("lastName", user.getLastName());
-    userprofile.put("email", user.getEmail());
-    userprofile.put("phone", user.getPhone());
-    response.put("data", userprofile);
+    response.put("data", user);
     
     return new ResponseEntity<>(response,HttpStatus.CREATED);
   }
