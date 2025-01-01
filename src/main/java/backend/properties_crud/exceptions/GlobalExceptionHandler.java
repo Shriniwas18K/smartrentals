@@ -1,5 +1,6 @@
 package backend.properties_crud.exceptions;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.coyote.BadRequestException;

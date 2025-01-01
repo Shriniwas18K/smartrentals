@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.List;
 
 public record PropertyDTO(
     @Schema(
@@ -31,4 +32,5 @@ public record PropertyDTO(
             allowableValues = "ONE_BHK,ONE_RK,TWO_BHK,THREE_BHK,BUNGALOW")
         @NotNull(message = "Property type cannot be null")
         @Enumerated(EnumType.STRING)
-        PropertyType type) {}
+        PropertyType type,
+    @Schema(description = "Images of property") List<String> base64EncodedImages) {}

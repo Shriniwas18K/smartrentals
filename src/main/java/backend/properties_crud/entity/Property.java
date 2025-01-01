@@ -1,7 +1,8 @@
 package backend.properties_crud.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,4 +44,6 @@ public class Property{
 
     @Enumerated(EnumType.STRING)
     private PropertyType type;
+
+    private List<String> base64EncodedImages;
 }

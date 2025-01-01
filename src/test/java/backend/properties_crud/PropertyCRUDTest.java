@@ -36,22 +36,31 @@ public class PropertyCRUDTest {
 
   @InjectMocks private PropertyCRUD propertyCRUD;
 
-  UserDetails userDetails=new UserDetails() {
-    public String getUsername(){
-        return "user@example.com";
-    }
-    public String getPassword(){
-        return "temp";
-    }
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        return null;
-    }
-  };
+  UserDetails userDetails =
+      new UserDetails() {
+        public String getUsername() {
+          return "user@example.com";
+        }
+
+        public String getPassword() {
+          return "temp";
+        }
+
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+          return null;
+        }
+      };
+
   @Test
   public void testStoreProperty() {
     // Arrange
-    PropertyDTO propertyDTO = new PropertyDTO("address", 100, 1000, PropertyType.ONE_BHK);
-    User user = User.builder().email("user@example.com").password("temp").properties(new ArrayList<Property>()).build();
+    PropertyDTO propertyDTO = new PropertyDTO("address", 100, 1000, PropertyType.ONE_BHK, null);
+    User user =
+        User.builder()
+            .email("user@example.com")
+            .password("temp")
+            .properties(new ArrayList<Property>())
+            .build();
     when(userRepository.findByEmail("user@example.com")).thenReturn(user);
     when(propertyRepository.save(any(Property.class))).thenReturn(new Property());
 
@@ -85,7 +94,7 @@ public class PropertyCRUDTest {
   public void testUpdateProperty() {
     // Arrange
     Long id = 1L;
-    PropertyDTO propertyDTO = new PropertyDTO("address", 100, 1000, PropertyType.ONE_BHK);
+    PropertyDTO propertyDTO = new PropertyDTO("address", 100, 1000, PropertyType.ONE_BHK,null);
     User user = User.builder().email("user@example.com").password("temp").build();
     Property property = new Property();
     when(userRepository.findByEmail("user@example.com")).thenReturn(user);
@@ -115,5 +124,4 @@ public class PropertyCRUDTest {
     assertEquals(HttpStatus.OK, response.getStatusCode());
     verify(propertyRepository, times(1)).delete(property);
   }
-
 }
