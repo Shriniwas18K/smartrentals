@@ -1,11 +1,15 @@
-# Use the official OpenJDK image from the Docker Hub
-FROM openjdk:17-jdk-slim
+# Use the Eclipse temurin alpine official image
+# https://hub.docker.com/_/eclipse-temurin
+FROM eclipse-temurin:17-jdk-alpine
 
-# ARG is used to pass in the JAR file during the build process
-ARG JAR_FILE=target/*.jar
+# Create and change to the app directory.
+WORKDIR /app
 
-# Copy the JAR file to the container
-COPY ${JAR_FILE} app.jar
+# Copy local code to the container image.
+COPY . ./
 
-# Set the entry point to run the application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Build the app.
+RUN ./mvnw -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
+
+# Run the app by dynamically finding the JAR file in the target directory
+CMD ["sh", "-c", "java -jar target/*.jar"]
