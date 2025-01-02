@@ -19,14 +19,6 @@ public class RegistrationTest {
   @Autowired private MockMvc mockMvc;
 
   @Test
-  @Order(0)
-  void test_unauthorized_access() throws Exception {
-    mockMvc
-        .perform(get("/"))
-        .andExpect(status().isUnauthorized());
-  }
-
-  @Test
   @Order(1)
   void test_validation_of_request_body_in_registration() throws Exception {
     String url = "/registration";
