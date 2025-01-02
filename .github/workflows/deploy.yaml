@@ -1,4 +1,4 @@
-name: Deploy Prometheus and Grafana
+name: Deploy Prometheus
 
 on:
   push:
