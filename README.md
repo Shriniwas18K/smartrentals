@@ -44,7 +44,7 @@ The `User` entity represents a user with various attributes, including first nam
 
 #### 1. User Registration
 
-**Endpoint:** `POST /api/registration`  
+**Endpoint:** `POST /registration`  
 **Description:** Register a new user.  
 **Request Body:**
 ```json
@@ -71,7 +71,7 @@ The `User` entity represents a user with various attributes, including first nam
 ```
 #### 2. Search Properties
 
-**Endpoint:** GET /api/search 
+**Endpoint:** GET /search 
 **Description:** Search for properties based on criteria.
 **Request Query Parameters:**
 
@@ -120,6 +120,7 @@ The `User` entity represents a user with various attributes, including first nam
 
 **URL:** /property/new
 **Method:** POST
+**Authentication:** HTTP Basic
 **Consumes:** application/json
 **Request Body:**
 ```json
@@ -155,6 +156,7 @@ The `User` entity represents a user with various attributes, including first nam
 
 **URL:** /property/user
 **Method:** GET
+**Authentication:** HTTP Basic
 **Response:**
 **Status:** 200 OK
 **Body:**
@@ -190,6 +192,7 @@ The `User` entity represents a user with various attributes, including first nam
 
 **URL:** /property/{id}
 **Method:** GET
+**Authentication:** HTTP Basic
 **Response:**
 **Status:** 200 OK or 404 Not Found
 **Body:**
@@ -212,6 +215,7 @@ The `User` entity represents a user with various attributes, including first nam
 
 **URL:** /property/{id}
 **Method:** PUT
+**Authentication:** HTTP Basic
 **Consumes:** application/json
 **Request Body:**
 ```json
@@ -247,6 +251,7 @@ The `User` entity represents a user with various attributes, including first nam
 
 **URL:** /property/{id}
 **Method:** DELETE
+**Authentication:** HTTP Basic
 **Response:**
 **Status:** 200 OK or 404 Not Found
 **Body:**
