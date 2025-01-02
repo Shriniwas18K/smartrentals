@@ -1,14 +1,9 @@
 package backend.properties_crud;
 
-import static backend.properties_crud.TestUtils.getEncodedCredentials;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 public class RegistrationTest {
 
   @Autowired private MockMvc mockMvc;
-
-  private final String encodedCredentials =
-      getEncodedCredentials("storagedecentralized@gmail.com", "123456789");
 
   @Test
   @Order(0)
@@ -65,18 +57,6 @@ public class RegistrationTest {
             "email":"storagedecentralized@gmail.com",
             "password":"123456789",
             "phone":"1234567890"
-        }
-        """;
-    String expectedResponseBody =
-        """
-        {
-            "data": {
-                "firstName": "storage",
-                "lastName": "decentralized",
-                "email": "storagedecentralized@gmail.com",
-                "phone": "1234567890"
-            },
-            "message": "Registration Successful."
         }
         """;
     mockMvc

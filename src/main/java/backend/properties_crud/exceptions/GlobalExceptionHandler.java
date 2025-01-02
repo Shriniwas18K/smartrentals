@@ -1,8 +1,8 @@
 package backend.properties_crud.exceptions;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
