@@ -2,7 +2,18 @@
 
 ## Overview
 
-The Property-CRUD Operations API allows users to perform CRUD (Create, Read, Update, Delete) operations on property listings. Authenticated users can post new properties, including base64-encoded images. All users can retrieve property listings and contact property owners for rentals. There are two public routes available without authentication: `/registration` and `/search`.
+The Property-CRUD Operations API allows users to perform CRUD (Create, Read, Update, Delete) operations on property listings. Authenticated users can post new properties, including base64-encoded images. All users can retrieve property listings and contact property owners for rentals. There are three public routes available without authentication: `/`,`/registration` and `/search`.
+
+## Technologies used : 
+- **Spring Boot 3.3.6**
+- **Java SE 17**(open-jdk-17)
+- **Spring Data JPA**
+- **Lombok**
+- **H2-database**
+- **Spring security 6**
+- **JUnit,Mockito**
+- **Maven and VSCODE IDE with extensions and plugins**
+
 
 ## Authentication
 
@@ -21,7 +32,7 @@ The `Property` entity represents a property listing with various attributes, inc
 - **user**: Reference to the user who owns the property.
 - **area**: Area of the property in square feet.
 - **rent**: Rent amount for the property.
-- **type**: Type of the property (e.g., APARTMENT, HOUSE).
+- **type**: Type of the property (ONE_BHK,TWO_BHK,THREE_BHK,BUNGALOW,ONE_RK).
 - **base64EncodedImages**: List of base64-encoded images of the property.
 
 ### User
@@ -42,7 +53,7 @@ The `User` entity represents a user with various attributes, including first nam
 
 ### Public Endpoints
 
-#### 1. User Registration
+##### 1. User Registration
 
 **Endpoint:** `POST /registration`  
 **Description:** Register a new user.  
@@ -69,7 +80,7 @@ The `User` entity represents a user with various attributes, including first nam
   }
 }
 ```
-#### 2. Search Properties
+##### 2. Search Properties
 
 **Endpoint:** GET /search 
 **Description:** Search for properties based on criteria.
@@ -111,6 +122,15 @@ The `User` entity represents a user with various attributes, including first nam
   ]
 }
 ```
+##### 3. Greetings
+**Endpoint:** GET /
+**Response Status:** 200 OK
+**Response Body**
+```json
+{
+    "message":"Greetings!! Have look at our docs https://github.com/Shriniwas18K/properties-crud/tree/main?tab=readme-ov-file#property-crud-operations-api"
+}
+```
 
 ### Private Endpoints : Require Httpbasic stateless authentication
 
@@ -130,7 +150,10 @@ The `User` entity represents a user with various attributes, including first nam
   "rent": 1200,
   "type": "TWO_BHK",
   "base64EncodedImages": [
-    "iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAIAAAD7E5cJAAAABmJLR0QA/wD/AP+gvaeT..."
+    "iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAIAAAD7E5cJAAAABmJLR0QA/wD/AP+gvaeT...",
+    // NOTE : it is responsiblity of user to provide the base64 encoded images,
+    // the rest api doesnt check wheter encoding is valid, the given images are
+    // stored as it is.
   ]
 }
 ```

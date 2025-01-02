@@ -37,10 +37,8 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             authorize ->
                 authorize
-                    .requestMatchers("/registration", "/actuator/**", "/search")
+                    .requestMatchers("/registration", "/actuator/**", "/search","/")
                     .permitAll()
-                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
-                    .permitAll() // Allow access to Swagger UI resources
                     .anyRequest()
                     .authenticated())
         .sessionManagement(

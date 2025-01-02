@@ -33,7 +33,7 @@ public class UserProfileAndRemoveAndUpdate {
   @ResponseStatus(code = HttpStatus.OK)
   public ResponseEntity<?> greetings() {
     Map<String, String> response = new HashMap<>();
-    response.put("message", "Greetings!! Glad to see you here");
+    response.put("message", "Greetings!! Glad to see you here. Have look at docs at https://github.com/Shriniwas18K/properties-crud/tree/main?tab=readme-ov-file#property-crud-operations-api");
     return ResponseEntity.ok(response);
   }
 

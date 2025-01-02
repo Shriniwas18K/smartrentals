@@ -29,6 +29,13 @@ public class PublicController {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
 
+  @GetMapping("/")
+  public ResponseEntity<?> greetings(){
+    Map<String, Object> response = new HashMap<>();
+    response.put("message", "Greetings!! Have look at our docs https://github.com/Shriniwas18K/properties-crud/tree/main?tab=readme-ov-file#property-crud-operations-api");
+    return ResponseEntity.ok(response);
+  }
+
   @PostMapping(value="/registration",consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> userRegistrationHandler(
       @Valid @RequestBody UserRegistrationAndUpdationDTO DTO) {
