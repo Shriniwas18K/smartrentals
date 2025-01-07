@@ -1,8 +1,8 @@
-# Property-CRUD Operations API
+# Smartrentals Operations API
 
 ## Overview
 
-The Property-CRUD Operations API allows users to perform CRUD (Create, Read, Update, Delete) operations on property listings. Authenticated users can post new properties, including base64-encoded images. All users can retrieve property listings and contact property owners for rentals. There are three public routes available without authentication: `/`,`/registration` and `/search`.
+The Smartrentals Operations API allows users to perform CRUD (Create, Read, Update, Delete) operations on property listings. Authenticated users can post new properties, including base64-encoded images. All users can retrieve property listings and contact property owners for rentals. There are three public routes available without authentication: `/`,`/registration` and `/search`.
 
 ## Technologies used : 
 - **Spring Boot 3.3.6**
@@ -128,7 +128,7 @@ The `User` entity represents a user with various attributes, including first nam
 **Response Body**
 ```json
 {
-    "message":"Greetings!! Have look at our docs https://github.com/Shriniwas18K/properties-crud/tree/main?tab=readme-ov-file#property-crud-operations-api"
+    "message":"Greetings!! Have look at our docs https://github.com/Shriniwas18K/properties-crud/tree/main?tab=readme-ov-file#Smartrentals-operations-api"
 }
 ```
 
