@@ -1,8 +1,8 @@
-# Smartrentals Operations API
+# Smartrentals API
 
 ## Overview
 
-The Smartrentals Operations API allows users to perform CRUD (Create, Read, Update, Delete) operations on property listings. Authenticated users can post new properties, including base64-encoded images. All users can retrieve property listings and contact property owners for rentals. There are three public routes available without authentication: `/`,`/registration` and `/search`.
+The Smartrentals API allows users to perform CRUD (Create, Read, Update, Delete) operations on property listings. Authenticated users can post new properties, including base64-encoded images. All users can retrieve property listings and contact property owners for rentals. There are three public routes available without authentication: `/`,`/registration` and `/search`.
 
 ## Technologies used : 
 - **Spring Boot 3.3.6**
